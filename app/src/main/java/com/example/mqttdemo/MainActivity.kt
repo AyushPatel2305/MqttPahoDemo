@@ -89,6 +89,8 @@ class MainActivity : AppCompatActivity() {
     fun conn(v: View?) {
         try {
             val options = MqttConnectOptions().apply { isCleanSession = true }
+//            options.setSocketFactory(SslUtility.getInstance(this.applicationContext).getSocketFactory
+//                (R.raw.your_keystore_file,"****"))
             val token: IMqttToken =
                 client.connect(options)
             token.actionCallback = object : IMqttActionListener {
