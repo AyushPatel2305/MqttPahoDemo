@@ -19,7 +19,9 @@ class MainActivity : AppCompatActivity() {
 
     private val TOPIC = "event"
     private val QOS = 0
-    private val SERVER_URL = "tcp://broker.mqttdashboard.com:1883"
+
+    //    private val SERVER_URL = "tcp://broker.mqttdashboard.com:1883"
+    private val SERVER_URL = "ws://broker.mqttdashboard.com:8000/mqtt"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,7 +88,9 @@ class MainActivity : AppCompatActivity() {
 
     fun conn(v: View?) {
         try {
-            val token: IMqttToken = client.connect()
+            val options = MqttConnectOptions().apply { isCleanSession = true }
+            val token: IMqttToken =
+                client.connect(options)
             token.actionCallback = object : IMqttActionListener {
                 override fun onSuccess(asyncActionToken: IMqttToken) {
                     Toast.makeText(this@MainActivity, "connected!!", Toast.LENGTH_LONG).show()
